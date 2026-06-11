@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Giám Sát Lũ Lụt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        :root {
+            --primary: #2980b9; --secondary: #8e44ad;
+            --bg: #ecf0f1; --card-bg: #ffffff; --text: #2c3e50;
+            --danger: #e74c3c; --safe: #27ae60;
+        }
+
+        body { font-family: 'Roboto', sans-serif; background: var(--bg); margin: 0; padding: 20px; color: var(--text); height: 100vh; box-sizing: border-box; overflow: hidden; }
+
+       
+        .main-container {
+            max-width: 1200px; margin: 0 auto; height: 95vh;
+            display: grid; grid-template-rows: 60px 1fr; gap: 20px;
+        }
+
+        
+        header {
+            background: var(--card-bg); border-radius: 15px; padding: 0 30px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .title { font-size: 20px; font-weight: 700; color: var(--primary); display: flex; align-items: center; gap: 10px; }
+        .status { font-size: 13px; color: #7f8fa6; display: flex; align-items: center; gap: 6px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: #ccc; }
+        .dot.online { background: var(--safe); box-shadow: 0 0 8px var(--safe); }
+
+        .content { display: grid; grid-template-columns: 350px 1fr; gap: 20px; height: 100%; overflow: hidden; }
+
+        .left-panel { display: flex; flex-direction: column; gap: 15px; overflow-y: auto; }
+        
+        .card {
+            background: var(--card-bg); border-radius: 15px; padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            display: flex; justify-content: space-between; align-items: center;
+            transition: transform 0.2s;
+        }
+        .card:hover { transform: translateY(-2px); }
+        .card-icon { width: 50px; height: 50px; border-radius: 12px; background: #f1f2f6; display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 24px; }
+        .card-info { text-align: right; }
+        .card-label { font-size: 12px; color: #95a5a6; font-weight: 500; text-transform: uppercase; }
+        .card-value { font-size: 28px; font-weight: 700; color: var(--text); }
+        .unit { font-size: 14px; font-weight: 400; color: #7f8fa6; }
+
+        .control-box {
+            background: var(--card-bg); border-radius: 15px; padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center;
+            flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 20px;
+        }
+
+        .switch-row { display: flex; align-items: center; justify-content: space-between; width: 100%; }
+        .switch { position: relative; display: inline-block; width: 60px; height: 34px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #bdc3c7; transition: .4s; border-radius: 34px; }
+        .slider:before { position: absolute; content: ""; height: 26px; width: 26px; left: 4px; bottom: 4px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--danger); } /* Màu đỏ khi Tắt còi */
+        input:checked + .slider:before { transform: translateX(26px); }
+
+        .mic-btn {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), #3498db);
+            border: none; color: white; font-size: 36px;
+            cursor: pointer; box-shadow: 0 8px 20px rgba(41, 128, 185, 0.4);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.3s;
+        }
+        .mic-btn:active { transform: scale(0.95); }
+        .mic-btn.listening { background: var(--danger); animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7); } 70% { box-shadow: 0 0 0 20px rgba(231, 76, 60, 0); } }
+
+
+        .right-panel {
+            background: var(--card-bg); border-radius: 15px; padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: relative;
+        }
+        canvas { width: 100% !important; height: 100% !important; }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <header>
+            <div class="title">
+                <i class="material-icons">flood</i> FLOOD MONITORING CENTER
+            </div>
+            <div class="status">
+                <div class="dot" id="conn-dot"></div>
+                <span id="conn-text">Disconnected</span>
+            </div>
+        </header>
+
+        <div class="content">
+            
+            <div class="left-panel">
+                <div class="card">
+                    <div class="card-icon"><i class="material-icons">grain</i></div>
+                    <div class="card-info">
+                        <div class="card-label">Rainfall</div>
+                        <span class="card-value" id="val-rain">--</span> <span class="unit">mm</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="material-icons">water</i></div>
+                    <div class="card-info">
+                        <div class="card-label">Hydroelectric Water Level</div>
+                        <span class="card-value" id="val-hydro">--</span> <span class="unit">cm</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-icon"><i class="material-icons">apartment</i></div>
+                    <div class="card-info">
+                        <div class="card-label">River Water Level</div>
+                        <span class="card-value" id="val-city">--</span> <span class="unit">cm</span>
+                    </div>
+                </div>
+
+                <div class="control-box">
+                    <div class="switch-row">
+                        <span style="font-weight: 500; color: #7f8fa6;">SILENT MODE</span>
+                        <label class="switch">
+                            <input type="checkbox" id="mute-switch" onchange="toggleMute()">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    
+                    <button class="mic-btn" id="mic-btn" onclick="startVoice()">
+                        <i class="material-icons">mic</i>
+                    </button>
+                    <div style="font-size: 12px; color: #bdc3c7;" id="voice-msg">Nhấn để nói lệnh</div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <canvas id="floodChart"></canvas>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const TB_URL = "https://thingsboard.cloud";
+        const USERNAME = "thinhvv.22it@vku.udn.vn";  
+        const PASSWORD = "118961531426Thinh";       
+        const DEVICE_ID = "6266c6e0-4db8-11f1-abf3-cbbdf6c67c13"; 
+        let jwt_token = "";
+        let chartInstance; 
+
+        function initChart() {
+            const ctx = document.getElementById('floodChart').getContext('2d');
+            chartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [], 
+                    datasets: [
+                        { label: 'Rain (mm)', borderColor: '#3498db', backgroundColor: 'rgba(52, 152, 219, 0.1)', data: [], tension: 0.4, fill: true },
+                        { label: 'Hidroelectic (cm)', borderColor: '#1abc9c', backgroundColor: 'rgba(26, 188, 156, 0.1)', data: [], tension: 0.4, fill: true },
+                        { label: 'River (cm)', borderColor: '#e67e22', backgroundColor: 'rgba(230, 126, 34, 0.1)', data: [], tension: 0.4, fill: true }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: { grid: { display: false } },
+                        y: { beginAtZero: true, grid: { color: '#f1f2f6' } }
+                    },
+                    plugins: {
+                        legend: { position: 'top' },
+                        title: { display: true, text: 'REAL-TIME DATA CHART' }
+                    },
+                    animation: { duration: 0 } 
+                }
+            });
+        }
+
+        async function login() {
+            try {
+                const response = await fetch(`${TB_URL}/api/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: USERNAME, password: PASSWORD })
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    jwt_token = data.token;
+                    document.getElementById('conn-text').innerText = "Đã kết nối";
+                    document.getElementById('conn-dot').classList.add('online');
+                    fetchData(); // Lấy dữ liệu ngay
+                }
+            } catch (err) { console.error("Login Err:", err); }
+        }
+
+
+        async function fetchData() {
+            if (!jwt_token) return;
+            try {
+                const url = `${TB_URL}/api/plugins/telemetry/DEVICE/${DEVICE_ID}/values/timeseries?keys=rain,hydro,city,isMuted`;
+                const response = await fetch(url, { method: 'GET', headers: { 'X-Authorization': `Bearer ${jwt_token}` } });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    let r = 0, h = 0, c = 0;
+                    if (data.rain) { r = parseFloat(data.rain[0].value); document.getElementById('val-rain').innerText = r.toFixed(1); }
+                    if (data.hydro) { h = parseFloat(data.hydro[0].value); document.getElementById('val-hydro').innerText = h.toFixed(0); }
+                    if (data.city) { c = parseFloat(data.city[0].value); document.getElementById('val-city').innerText = c.toFixed(0); }
+                    
+                    if (data.isMuted) document.getElementById('mute-switch').checked = (data.isMuted[0].value === "true");
+
+                    const now = new Date().toLocaleTimeString('vi-VN', { hour12: false });
+                    addDataToChart(now, r, h, c);
+                }
+            } catch (err) { console.error(err); }
+        }
+
+        function addDataToChart(label, rain, hydro, city) {
+            if (!chartInstance) return;
+
+            chartInstance.data.labels.push(label);
+            chartInstance.data.datasets[0].data.push(rain);
+            chartInstance.data.datasets[1].data.push(hydro);
+            chartInstance.data.datasets[2].data.push(city);
+
+            if (chartInstance.data.labels.length > 20) {
+                chartInstance.data.labels.shift(); 
+                chartInstance.data.datasets[0].data.shift();
+                chartInstance.data.datasets[1].data.shift();
+                chartInstance.data.datasets[2].data.shift();
+            }
+            chartInstance.update();
+        }
+
+        async function toggleMute() {
+            const isMuted = document.getElementById('mute-switch').checked;
+            const url = `${TB_URL}/api/plugins/rpc/oneway/${DEVICE_ID}`;
+            await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'X-Authorization': `Bearer ${jwt_token}` },
+                body: JSON.stringify({ method: "setMute", params: isMuted })
+            });
+        }
+
+        function startVoice() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            if (!SpeechRecognition) return alert("Dùng Chrome nhé!");
+            const recognition = new SpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.start();
+            
+            const btn = document.getElementById('mic-btn');
+            const txt = document.getElementById('voice-msg');
+            recognition.onstart = () => { btn.classList.add('listening'); txt.innerText = "Đang nghe..."; };
+            recognition.onend = () => { btn.classList.remove('listening'); txt.innerText = "Nhấn để nói lệnh"; };
+            recognition.onresult = (event) => {
+                const text = event.results[0][0].transcript.toLowerCase();
+                txt.innerText = `Lệnh: "${text}"`;
+                if (text.includes("turn off") || text.includes("off")) { document.getElementById('mute-switch').checked = true; toggleMute(); } 
+                else if (text.includes("turn on") || text.includes("on")) { document.getElementById('mute-switch').checked = false; toggleMute(); }
+            };
+        }
+
+        initChart();
+        login();
+        setInterval(fetchData, 2000); 
+        setInterval(login, 15 * 60 * 1000); 
+
+    </script>
+</body>
+</html>
