@@ -1,0 +1,123 @@
+<RCC>
+    <qresource prefix="/">
+        <file>AppCard.qml</file>
+        <file>main.qml</file>
+        <file>HomePage.qml</file>
+        <file>MusicHub.qml</file>
+        <file>PlaylistView.qml</file>
+        <file>NowPlaying.qml</file>
+        <file>SettingPage.qml</file>
+        <file>DashboardCar.qml</file>
+        <file>BottomBar.qml</file>
+        <file>LeftClock.qml</file>
+        <file>TopBar.qml</file>
+        <file>LeftIcons.qml</file>
+        <file>QButton.qml</file>
+        <file>QIndicator.qml</file>
+        <file>QSlider.qml</file>
+        <file>RightClock.qml</file>
+        <file>RightIcons.qml</file>
+        <file>Road.qml</file>
+        <file>SideGauge.qml</file>
+        <file alias="Panel.png">Data_Lab05/Qt/img_Lab05/Panel.png</file>
+        <file alias="Speedometer.png">Data_Lab05/Qt/img_Lab05/Speedometer.png</file>
+        <file alias="Tacometer.png">Data_Lab05/Qt/img_Lab05/Tacometer.png</file>
+        <file alias="TopBar.png">Data_Lab05/Qt/img_Lab05/TopBar.png</file>
+        <file alias="shade.png">Data_Lab05/Qt/img_Lab05/shade.png</file>
+        <file alias="SportCarFloorShadow.png">Data_Lab05/Qt/img_Lab05/SportCarFloorShadow.png</file>
+
+    </qresource>
+    <qresource prefix="/image_icons">
+        <file alias="wifi.png">image_icons/wifi.png</file>
+        <file alias="bluetooth.png">image_icons/bluetooth.png</file>
+        <file alias="app.png">image_icons/app.png</file>
+        <file alias="music.png">image_icons/music.png</file>
+        <file alias="google-maps.png">image_icons/google-maps.png</file>
+        <file alias="call.png">image_icons/call.png</file>
+        <file alias="wind.png">image_icons/wind.png</file>
+        <file alias="car.png">image_icons/car.png</file>
+        <file alias="setting.png">image_icons/setting.png</file>
+        <file alias="radio.png">image_icons/radio.png</file>
+        <file alias="on-off-button.png">image_icons/on-off-button.png</file>
+        <file alias="repeat.png">image_icons/repeat.png</file>
+        <file alias="play.png">image_icons/play.png</file>
+        <file alias="pause.png">image_icons/pause.png</file>
+        <file alias="shuffle.png">image_icons/shuffle.png</file>
+        <file alias="next.png">image_icons/next.png</file>
+        <file alias="previous.png">image_icons/previous.png</file>
+        <file alias="backward.png">image_icons/backward.png</file>
+        <file alias="add.png">image_icons/add.png</file>
+        <file alias="delete.png">image_icons/delete.png</file>
+        <file alias="edit.png">image_icons/edit.png</file>
+        <file alias="heart.png">image_icons/heart.png</file>
+        <file alias="hearted.png">image_icons/hearted.png</file>
+        <file alias="forward.png">image_icons/forward.png</file>
+        <file alias="back.png">image_icons/back.png</file>
+        <file alias="history.png">image_icons/history.png</file>
+        <file alias="playlist.png">image_icons/playlist.png</file>
+        <file alias="three-dots.png">image_icons/three-dots.png</file>
+        <file alias="search.png">image_icons/search.png</file>
+        <file alias="addplaylist.png">image_icons/addplaylist.png</file>
+        <file alias="logo_nhom3.png">image_icons/logo_nhom3.png</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file alias="bottom.png">Data_Lab05/Qt/img_Lab05/icons/bottom.png</file>
+        <file alias="cloud.svg">Data_Lab05/Qt/img_Lab05/icons/cloud.svg</file>
+        <file alias="desal.svg">Data_Lab05/Qt/img_Lab05/icons/desal.svg</file>
+        <file alias="feaul.svg">Data_Lab05/Qt/img_Lab05/icons/feaul.svg</file>
+        <file alias="left.svg">Data_Lab05/Qt/img_Lab05/icons/left.svg</file>
+        <file alias="right.svg">Data_Lab05/Qt/img_Lab05/icons/right.svg</file>
+        <file alias="Vector1.png">Data_Lab05/Qt/img_Lab05/icons/Vector1.png</file>
+        <file alias="Vector1.svg">Data_Lab05/Qt/img_Lab05/icons/Vector1.svg</file>
+        <file alias="Vector2.png">Data_Lab05/Qt/img_Lab05/icons/Vector2.png</file>
+        <file alias="Vector2.svg">Data_Lab05/Qt/img_Lab05/icons/Vector2.svg</file>
+    </qresource>
+    <qresource prefix="/icons-left">
+        <file alias="battery.svg">Data_Lab05/Qt/img_Lab05/icons/icons-left/mdi_car-battery.svg</file>
+        <file alias="handbrake.svg">Data_Lab05/Qt/img_Lab05/icons/icons-left/mdi_car-handbrake.svg</file>
+        <file alias="tire.svg">Data_Lab05/Qt/img_Lab05/icons/icons-left/mdi_car-tire-alert.svg</file>
+        <file alias="oil.svg">Data_Lab05/Qt/img_Lab05/icons/icons-left/mdi_oil.svg</file>
+        <file alias="engine.svg">Data_Lab05/Qt/img_Lab05/icons/icons-left/ph_engine-bold.svg</file>
+        <file alias="right-two.svg">Data_Lab05/Qt/img_Lab05/icons/icons-left/icon-park-solid_right-two.svg</file>
+    </qresource>
+    <qresource prefix="/icons-left-checked">
+        <file alias="battery.svg">Data_Lab05/Qt/img_Lab05/icons/icons-left-checked/mdi_car-battery.svg</file>
+        <file alias="handbrake.svg">Data_Lab05/Qt/img_Lab05/icons/icons-left-checked/mdi_car-handbrake.svg</file>
+        <file alias="tire.svg">Data_Lab05/Qt/img_Lab05/icons/icons-left-checked/mdi_car-tire-alert.svg</file>
+        <file alias="oil.svg">Data_Lab05/Qt/img_Lab05/icons/icons-left-checked/mdi_oil.svg</file>
+        <file alias="engine.svg">Data_Lab05/Qt/img_Lab05/icons/icons-left-checked/ph_engine-bold.svg</file>
+        <file alias="right-two.svg">Data_Lab05/Qt/img_Lab05/icons/icons-left-checked/icon-park-solid_right-two.svg</file>
+    </qresource>
+    <qresource prefix="/icons-right">
+        <file alias="parking.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right/mdi_car-brake-parking.svg</file>
+        <file alias="light-dimmed.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right/mdi_car-light-dimmed.svg</file>
+        <file alias="light-fog.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right/mdi_car-light-fog.svg</file>
+        <file alias="light-high.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right/mdi_car-light-high.svg</file>
+        <file alias="seatbelt.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right/mdi_seatbelt.svg</file>
+        <file alias="right-two.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right/icon-park-solid_right-two.svg</file>
+        <file alias="light-fog2.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right/mdi_car-light-fog (copy).svg</file>
+        <file alias="light-dimmed2.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right/mdi_car-light-dimmed (copy).svg</file>
+    </qresource>
+    <qresource prefix="/icons-right-checked">
+        <file alias="parking.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right-checked/mdi_car-brake-parking.svg</file>
+        <file alias="light-dimmed.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right-checked/mdi_car-light-dimmed.svg</file>
+        <file alias="light-fog.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right-checked/mdi_car-light-fog.svg</file>
+        <file alias="light-high.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right-checked/mdi_car-light-high.svg</file>
+        <file alias="seatbelt.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right-checked/mdi_seatbelt.svg</file>
+        <file alias="right-two.svg">Data_Lab05/Qt/img_Lab05/icons/icons-right-checked/icon-park-solid_right-two.svg</file>
+    </qresource>
+    <qresource prefix="/road">
+        <file alias="car.png">Data_Lab05/Qt/img_Lab05/icons/Road/car.png</file>
+        <file alias="carRoad.svg">Data_Lab05/Qt/img_Lab05/icons/Road/carRoad.svg</file>
+        <file alias="Frame33.png">Data_Lab05/Qt/img_Lab05/icons/Road/Frame33.png</file>
+        <file alias="clock.svg">Data_Lab05/Qt/img_Lab05/icons/Road/mdi_clock-time-four-outline.svg</file>
+        <file alias="marker.svg">Data_Lab05/Qt/img_Lab05/icons/Road/mdi_map-marker-outline.svg</file>
+        <file alias="turn-right.svg">Data_Lab05/Qt/img_Lab05/icons/Road/turn-right.svg</file>
+        <file alias="steering.svg">Data_Lab05/Qt/img_Lab05/icons/Road/steeringWheel.svg</file>
+        <file alias="road.png">Data_Lab05/Qt/img_Lab05/icons/Road/road.png</file>
+        <file alias="road2.png">Data_Lab05/Qt/img_Lab05/icons/Road/road2.png</file>
+        <file alias="road3.svg">Data_Lab05/Qt/img_Lab05/icons/Road/road3.svg</file>
+        <file alias="SpeedLimit.svg">Data_Lab05/Qt/img_Lab05/icons/Road/SpeedLimit.svg</file>
+        <file alias="ss.svg">Data_Lab05/Qt/img_Lab05/icons/Road/ss.svg</file>
+    </qresource>
+</RCC>

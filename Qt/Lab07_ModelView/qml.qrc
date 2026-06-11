@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Data_Lab07/Common/QDelegateBox.qml</file>
+        <file>Data_Lab07/Common/QTextBox.qml</file>
+        <file>Data_Lab07/Common/QToggleButton.qml</file>
+        <file>Data_Lab07/Img/darkBg.png</file>
+        <file>Data_Lab07/Img/iconBltBlack.png</file>
+        <file>Data_Lab07/Img/iconBltWhite.png</file>
+        <file>Data_Lab07/Img/lightBg.png</file>
+        <file>Data_Lab07/Img/top_dark.png</file>
+        <file>Data_Lab07/Img/top_light.png</file>
+    </qresource>
+</RCC>
